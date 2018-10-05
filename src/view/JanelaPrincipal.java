@@ -5,6 +5,16 @@
  */
 package view;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import marvin.image.MarvinImage;
+import marvin.io.MarvinImageIO;
+import marvin.util.MarvinFileChooser;
+
 /**
  *
  * @author herquiloide
@@ -27,6 +37,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser = new javax.swing.JFileChooser();
+        mfcImagem = new marvin.util.MarvinFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -40,6 +52,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+
+        javax.swing.GroupLayout mfcImagemLayout = new javax.swing.GroupLayout(mfcImagem.getContentPane());
+        mfcImagem.getContentPane().setLayout(mfcImagemLayout);
+        mfcImagemLayout.setHorizontalGroup(
+            mfcImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        mfcImagemLayout.setVerticalGroup(
+            mfcImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,7 +121,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 946, Short.MAX_VALUE))
+                .addContainerGap(1447, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +170,23 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        
+//        MarvinImageIO marvinImageIo = new MarvinImageIO();
+//        MarvinImage marvinImage = MarvinImageIO.loadImage("");
+
+
+        
+//    int returnVal = this.
+//    
+//    if(returnVal == this.jFileChooser.APPROVE_OPTION){
+//        File file = this.jFileChooser.getSelectedFile();
+//       try{
+//            this.jlImagem.setIcon(new ImageIcon((file.getAbsolutePath())));
+//       }catch(Exception ex){
+//           JOptionPane.showMessageDialog(null, "Erro ao renderizar a imgem");
+//    }
+//    }
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -194,6 +233,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JFileChooser jFileChooser;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -203,5 +243,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private marvin.util.MarvinFileChooser mfcImagem;
     // End of variables declaration//GEN-END:variables
 }
