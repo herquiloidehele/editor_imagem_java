@@ -6,14 +6,10 @@
 package view;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import marvin.image.MarvinImage;
 import marvin.io.MarvinImageIO;
-import marvin.util.MarvinFileChooser;
 
 /**
  *
@@ -23,7 +19,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
    
     
-    
+    private MarvinImage marvinImage, originalImage, imageIn, imageOut;
+    private int threadFinished;
+    private long processStartTime;
     
     
     
@@ -44,13 +42,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jFileChooser = new javax.swing.JFileChooser();
         mfcImagem = new marvin.util.MarvinFileChooser();
-        jPanel1 = new javax.swing.JPanel();
+        jpPrincinpal = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        marvinImagePanel1 = new marvin.gui.MarvinImagePanel();
+        jpImage = new marvin.gui.MarvinImagePanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -72,7 +70,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jpPrincinpal.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
 
@@ -121,30 +119,30 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(416, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout marvinImagePanel1Layout = new javax.swing.GroupLayout(marvinImagePanel1);
-        marvinImagePanel1.setLayout(marvinImagePanel1Layout);
-        marvinImagePanel1Layout.setHorizontalGroup(
-            marvinImagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jpImageLayout = new javax.swing.GroupLayout(jpImage);
+        jpImage.setLayout(jpImageLayout);
+        jpImageLayout.setHorizontalGroup(
+            jpImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 963, Short.MAX_VALUE)
         );
-        marvinImagePanel1Layout.setVerticalGroup(
-            marvinImagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jpImageLayout.setVerticalGroup(
+            jpImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jpPrincinpalLayout = new javax.swing.GroupLayout(jpPrincinpal);
+        jpPrincinpal.setLayout(jpPrincinpalLayout);
+        jpPrincinpalLayout.setHorizontalGroup(
+            jpPrincinpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpPrincinpalLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(marvinImagePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jpPrincinpalLayout.setVerticalGroup(
+            jpPrincinpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(marvinImagePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Ficheiro");
@@ -178,34 +176,37 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpPrincinpal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpPrincinpal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
-        MarvinImageIO marvinImageIo = new MarvinImageIO();
-        MarvinImage marvinImage = MarvinImageIO.loadImage("");
 
-
+        FileNameExtensionFilter fileExtensions = new FileNameExtensionFilter("Imagens JPG e png", "jpg", "png");
+        this.jFileChooser.setFileFilter(fileExtensions);
         
-//    int returnVal = this.
-//    
-//    if(returnVal == this.jFileChooser.APPROVE_OPTION){
-//        File file = this.jFileChooser.getSelectedFile();
-//       try{
-//            this.jlImagem.setIcon(new ImageIcon((file.getAbsolutePath())));
-//       }catch(Exception ex){
-//           JOptionPane.showMessageDialog(null, "Erro ao renderizar a imgem");
-//    }
-//    }
+        int returnValue = jFileChooser.showOpenDialog(jpPrincinpal);
         
+        if(returnValue == jFileChooser.APPROVE_OPTION){
+             File file = this.jFileChooser.getSelectedFile();
+                     
+        try{
+           
+            this.originalImage = MarvinImageIO.loadImage(file.getAbsolutePath());
+            this.imageIn = new MarvinImage(this.originalImage.getWidth(), this.originalImage.getHeight());
+            this.imageOut = new MarvinImage(this.originalImage.getWidth(), this.originalImage.getHeight());
+            this.jpImage.setImage(this.originalImage);
+       }catch(Exception ex){
+           JOptionPane.showMessageDialog(null, "Erro ao renderizar a imgem");
+    }
+        }
+       
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -260,9 +261,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private marvin.gui.MarvinImagePanel marvinImagePanel1;
+    private marvin.gui.MarvinImagePanel jpImage;
+    private javax.swing.JPanel jpPrincinpal;
     private marvin.util.MarvinFileChooser mfcImagem;
     // End of variables declaration//GEN-END:variables
 }
