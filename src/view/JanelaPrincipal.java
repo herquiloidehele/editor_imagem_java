@@ -21,9 +21,14 @@ import marvin.util.MarvinFileChooser;
  */
 public class JanelaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JanelaPrincipal
-     */
+   
+    
+    
+    
+    
+    
+    
+    
     public JanelaPrincipal() {
         initComponents();
     }
@@ -45,6 +50,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        marvinImagePanel1 = new marvin.gui.MarvinImagePanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -115,17 +121,30 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(416, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout marvinImagePanel1Layout = new javax.swing.GroupLayout(marvinImagePanel1);
+        marvinImagePanel1.setLayout(marvinImagePanel1Layout);
+        marvinImagePanel1Layout.setHorizontalGroup(
+            marvinImagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 963, Short.MAX_VALUE)
+        );
+        marvinImagePanel1Layout.setVerticalGroup(
+            marvinImagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1447, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(marvinImagePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(marvinImagePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Ficheiro");
@@ -171,8 +190,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         
-//        MarvinImageIO marvinImageIo = new MarvinImageIO();
-//        MarvinImage marvinImage = MarvinImageIO.loadImage("");
+        MarvinImageIO marvinImageIo = new MarvinImageIO();
+        MarvinImage marvinImage = MarvinImageIO.loadImage("");
 
 
         
@@ -243,6 +262,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private marvin.gui.MarvinImagePanel marvinImagePanel1;
     private marvin.util.MarvinFileChooser mfcImagem;
     // End of variables declaration//GEN-END:variables
 }
