@@ -43,6 +43,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jFileChooser = new javax.swing.JFileChooser();
         mfcImagem = new marvin.util.MarvinFileChooser();
         jpPrincinpal = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -71,8 +72,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jpPrincinpal.setBackground(new java.awt.Color(255, 255, 255));
+        jpPrincinpal.setLayout(new javax.swing.BoxLayout(jpPrincinpal, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel2.setBackground(new java.awt.Color(30, 144, 255));
+        jPanel2.setMaximumSize(new java.awt.Dimension(204, 32767));
+        jPanel2.setMinimumSize(new java.awt.Dimension(204, 324));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rotate left.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +111,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jButton4)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,34 +124,29 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(416, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3.add(jPanel2);
+
+        jpImage.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(30, 144, 255)));
+        jpImage.setMaximumSize(new java.awt.Dimension(2000, 2000));
+        jpImage.setPreferredSize(new java.awt.Dimension(920, 680));
 
         javax.swing.GroupLayout jpImageLayout = new javax.swing.GroupLayout(jpImage);
         jpImage.setLayout(jpImageLayout);
         jpImageLayout.setHorizontalGroup(
             jpImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 963, Short.MAX_VALUE)
+            .addGap(0, 919, Short.MAX_VALUE)
         );
         jpImageLayout.setVerticalGroup(
             jpImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 705, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jpPrincinpalLayout = new javax.swing.GroupLayout(jpPrincinpal);
-        jpPrincinpal.setLayout(jpPrincinpalLayout);
-        jpPrincinpalLayout.setHorizontalGroup(
-            jpPrincinpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpPrincinpalLayout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jpImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jpPrincinpalLayout.setVerticalGroup(
-            jpPrincinpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jpImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jPanel3.add(jpImage);
+
+        jpPrincinpal.add(jPanel3);
 
         jMenu1.setText("Ficheiro");
 
@@ -262,6 +265,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private marvin.gui.MarvinImagePanel jpImage;
     private javax.swing.JPanel jpPrincinpal;
     private marvin.util.MarvinFileChooser mfcImagem;
