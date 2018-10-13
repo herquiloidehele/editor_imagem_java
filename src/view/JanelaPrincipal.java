@@ -13,6 +13,7 @@ import marvin.image.MarvinImage;
 import marvin.io.MarvinImageIO;
 import marvin.plugin.MarvinImagePlugin;
 import marvin.util.MarvinPluginLoader;
+import model.Rotacao;
 
 /**
  *
@@ -26,6 +27,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private int threadFinished;
     private long processStartTime;
     private MarvinImagePlugin marvinImagePlugin;
+    private int rotateAngle;
+    private int [] rotateAngles;
     
     
     
@@ -33,12 +36,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     
     public JanelaPrincipal() {
         initComponents();
-        
-//        JScrollPane jScrollPane = new JScrollPane(this.jpImage);
-//        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        
-        
+        this.rotateAngle = 0;
+        this.rotateAngles = new int[]{0, 90, 180, 270, 360};
+      
     }
 
     /**
@@ -105,6 +105,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rotate right.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/crop2.png"))); // NOI18N
 
@@ -254,7 +259,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        this.originalImage = Rotacao.rotate90(this.originalImage);
+        this.originalImage.update();
+        this.jpImage.setImage(new MarvinImage());
+        this.jpImage.setImage(this.originalImage);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -265,11 +273,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-       this.marvinImagePlugin = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.color.grayScale.jar");
+        this.marvinImagePlugin = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.color.grayScale.jar");
         this.marvinImagePlugin.process(this.originalImage, this.originalImage);
         this.originalImage.update();
         this.jpImage.setImage(this.originalImage);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       this.originalImage = Rotacao.rotate270(this.originalImage);
+       this.originalImage.update();
+       this.jpImage.setImage(new MarvinImage());
+       this.jpImage.setImage(this.originalImage);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
