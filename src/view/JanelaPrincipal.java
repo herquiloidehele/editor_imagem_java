@@ -7,9 +7,12 @@ package view;
 
 import java.io.File;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import marvin.image.MarvinImage;
 import marvin.io.MarvinImageIO;
+import marvin.plugin.MarvinImagePlugin;
+import marvin.util.MarvinPluginLoader;
 
 /**
  *
@@ -22,6 +25,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private MarvinImage marvinImage, originalImage, imageIn, imageOut;
     private int threadFinished;
     private long processStartTime;
+    private MarvinImagePlugin marvinImagePlugin;
     
     
     
@@ -29,6 +33,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     
     public JanelaPrincipal() {
         initComponents();
+        
+//        JScrollPane jScrollPane = new JScrollPane(this.jpImage);
+//        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        
+        
     }
 
     /**
@@ -49,6 +59,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jpImage = new marvin.gui.MarvinImagePanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -57,6 +68,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
 
         javax.swing.GroupLayout mfcImagemLayout = new javax.swing.GroupLayout(mfcImagem.getContentPane());
         mfcImagem.getContentPane().setLayout(mfcImagemLayout);
@@ -129,6 +144,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jPanel3.add(jPanel2);
 
+        jpPrincinpal.add(jPanel3);
+
         jpImage.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(30, 144, 255)));
         jpImage.setMaximumSize(new java.awt.Dimension(2000, 2000));
         jpImage.setPreferredSize(new java.awt.Dimension(920, 680));
@@ -137,16 +154,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jpImage.setLayout(jpImageLayout);
         jpImageLayout.setHorizontalGroup(
             jpImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 919, Short.MAX_VALUE)
+            .addGap(0, 918, Short.MAX_VALUE)
         );
         jpImageLayout.setVerticalGroup(
             jpImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 705, Short.MAX_VALUE)
+            .addGap(0, 678, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jpImage);
+        jScrollPane1.setViewportView(jpImage);
 
-        jpPrincinpal.add(jPanel3);
+        jpPrincinpal.add(jScrollPane1);
 
         jMenu1.setText("Ficheiro");
 
@@ -172,6 +189,29 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jMenu3.setText("Ver");
         jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Efeitos");
+
+        jMenuItem4.setText("Inverter Cores");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem4);
+
+        jMenuItem5.setText("Preto & Branco");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Sobre");
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -202,19 +242,34 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         try{
            
             this.originalImage = MarvinImageIO.loadImage(file.getAbsolutePath());
-            this.imageIn = new MarvinImage(this.originalImage.getWidth(), this.originalImage.getHeight());
-            this.imageOut = new MarvinImage(this.originalImage.getWidth(), this.originalImage.getHeight());
+//            this.imageIn = new MarvinImage(this.originalImage.getWidth(), this.originalImage.getHeight());
+//            this.imageOut = new MarvinImage(this.originalImage.getWidth(), this.originalImage.getHeight());
+            
             this.jpImage.setImage(this.originalImage);
        }catch(Exception ex){
-           JOptionPane.showMessageDialog(null, "Erro ao renderizar a imgem");
+           JOptionPane.showMessageDialog(null, "Erro ao renderizar a imgem " + ex);
     }
         }
        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        this.marvinImagePlugin = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.color.invert.jar");
+        this.marvinImagePlugin.process(this.originalImage, this.originalImage);
+        this.originalImage.update();
+        this.jpImage.setImage(this.originalImage);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+       this.marvinImagePlugin = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.color.grayScale.jar");
+        this.marvinImagePlugin.process(this.originalImage, this.originalImage);
+        this.originalImage.update();
+        this.jpImage.setImage(this.originalImage);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,12 +315,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private marvin.gui.MarvinImagePanel jpImage;
     private javax.swing.JPanel jpPrincinpal;
     private marvin.util.MarvinFileChooser mfcImagem;
