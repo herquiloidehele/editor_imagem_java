@@ -12,6 +12,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import jdk.nashorn.internal.scripts.JD;
+import marvin.MarvinPluginCollection;
 import marvin.image.MarvinImage;
 import marvin.io.MarvinImageIO;
 import marvin.plugin.MarvinImagePlugin;
@@ -57,8 +58,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFileChooser = new javax.swing.JFileChooser();
+        jFileChooserOpen = new javax.swing.JFileChooser();
         mfcImagem = new marvin.util.MarvinFileChooser();
+        jFileChooserSave = new javax.swing.JFileChooser();
         jpPrincinpal = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -71,6 +73,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -91,6 +94,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        jFileChooserSave.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jpPrincinpal.setBackground(new java.awt.Color(255, 255, 255));
@@ -105,6 +110,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jPanel2.setMinimumSize(new java.awt.Dimension(204, 324));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rotate left.png"))); // NOI18N
+        jButton1.setToolTipText("rotacao Anti-horaria");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -112,6 +118,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/rotate right.png"))); // NOI18N
+        jButton2.setToolTipText("Rotacao Horaria");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -119,8 +126,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/crop2.png"))); // NOI18N
+        jButton3.setToolTipText("Clipping Image");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/scale.png"))); // NOI18N
+        jButton4.setToolTipText("Escala");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -150,9 +164,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(309, Short.MAX_VALUE))
         );
 
         jPanel3.add(jPanel2);
@@ -187,6 +201,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem1);
+
+        jMenuItem6.setText("Salvar...");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
 
         jMenuBar1.add(jMenu1);
 
@@ -245,12 +267,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
 
         FileNameExtensionFilter fileExtensions = new FileNameExtensionFilter("Imagens JPG e png", "jpg", "png");
-        this.jFileChooser.setFileFilter(fileExtensions);
+        this.jFileChooserOpen.setFileFilter(fileExtensions);
         
-        int returnValue = jFileChooser.showOpenDialog(jpPrincinpal);
+        int returnValue = jFileChooserOpen.showOpenDialog(jpPrincinpal);
         
-        if(returnValue == jFileChooser.APPROVE_OPTION){
-             File file = this.jFileChooser.getSelectedFile();
+        if(returnValue == jFileChooserOpen.APPROVE_OPTION){
+             File file = this.jFileChooserOpen.getSelectedFile();
                      
         try{
            
@@ -308,16 +330,32 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 	            x2 = ((j*x_ratio)>>16) ;
 	            y2 = ((i*y_ratio)>>16) ;
 	            this.imageOut.setIntColor(j,i, this.originalImage.getIntColor(x2,y2));
-	        }                
-	    }	    
-       
+                }
+            }
+         
         this.imageOut.update();
         this.jpImage.setImage(this.imageOut);
-       
-       
-       
-       
+            
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+        
+        MarvinPluginCollection.crop(this.originalImage, this.imageOut, 352, 215, 212, 62);
+        this.imageOut.update();
+        this.jpImage.setImage(this.imageOut);
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+          
+        int returnValue = jFileChooserSave.showOpenDialog(jpPrincinpal);
+        
+        if(returnValue == jFileChooserOpen.APPROVE_OPTION){
+             File file = this.jFileChooserSave.getSelectedFile();
+             MarvinImageIO.saveImage(this.originalImage, file.getAbsolutePath() + "/imagem.jpg");
+        }
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,7 +397,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JFileChooser jFileChooser;
+    private javax.swing.JFileChooser jFileChooserOpen;
+    private javax.swing.JFileChooser jFileChooserSave;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -371,6 +410,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
