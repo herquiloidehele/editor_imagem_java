@@ -341,9 +341,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         
         
-        MarvinPluginCollection.crop(this.originalImage, this.imageOut, 352, 215, 212, 62);
-        this.imageOut.update();
-        this.jpImage.setImage(this.imageOut);
+        MarvinPluginCollection.crop(this.originalImage.clone(), this.originalImage, 60, 32, 182, 62);
+        this.originalImage.update();
+        this.jpImage.setImage(this.originalImage);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
