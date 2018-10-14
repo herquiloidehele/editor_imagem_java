@@ -8,7 +8,10 @@ package view;
 import java.io.File;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import jdk.nashorn.internal.scripts.JD;
 import marvin.image.MarvinImage;
 import marvin.io.MarvinImageIO;
 import marvin.plugin.MarvinImagePlugin;
@@ -22,6 +25,10 @@ import model.Rotacao;
 public class JanelaPrincipal extends javax.swing.JFrame {
 
    
+    // Dialog que recebe os dados de altura e largura
+    private JDScale jDScale;
+    
+    
     
     private MarvinImage marvinImage, originalImage, imageIn, imageOut;
     private int threadFinished;
@@ -36,9 +43,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     
     public JanelaPrincipal() {
         initComponents();
-        this.rotateAngle = 0;
-        this.rotateAngles = new int[]{0, 90, 180, 270, 360};
-      
+        
+        this.jDScale = new JDScale(this, true);
+          
     }
 
     /**
@@ -113,25 +120,26 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/crop2.png"))); // NOI18N
 
-        jButton4.setText("jButton4");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/scale.png"))); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton2)
-                                .addComponent(jButton1))
-                            .addComponent(jButton3)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton4)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                    .addComponent(jButton4)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton2)
+                        .addComponent(jButton1))
+                    .addComponent(jButton3))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,6 +293,31 @@ public class JanelaPrincipal extends javax.swing.JFrame {
        this.jpImage.setImage(new MarvinImage());
        this.jpImage.setImage(this.originalImage);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       this.jDScale.setVisible(true);
+       
+       this.imageOut = this.originalImage.clone();
+       this.imageOut.setDimension(jDScale.largura, this.jDScale.largura);
+       
+        int x_ratio = (int)((this.originalImage.getWidth()<<16)/this.jDScale.largura) ;
+	    int y_ratio = (int)((this.originalImage.getHeight()<<16)/this.jDScale.altura) ;
+	    int x2, y2 ;
+	    for (int i=0;i<this.jDScale.altura;i++) {
+	        for (int j=0;j<this.jDScale.largura;j++) {
+	            x2 = ((j*x_ratio)>>16) ;
+	            y2 = ((i*y_ratio)>>16) ;
+	            this.imageOut.setIntColor(j,i, this.originalImage.getIntColor(x2,y2));
+	        }                
+	    }	    
+       
+        this.imageOut.update();
+        this.jpImage.setImage(this.imageOut);
+       
+       
+       
+       
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

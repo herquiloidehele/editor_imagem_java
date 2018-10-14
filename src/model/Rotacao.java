@@ -55,7 +55,6 @@ public class Rotacao {
                 imageOut.setIntColor(newX, newY, image.getIntColor(x, y));
             }
         }
-        
         return imageOut;
     }
     
