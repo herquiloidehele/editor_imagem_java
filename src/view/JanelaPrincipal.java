@@ -28,12 +28,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
    
     // Dialog que recebe os dados de altura e largura
     private JDScale jDScale;
+    private JDAbout jDAbout;
     
     
     
     private MarvinImage marvinImage, originalImage, imageIn, imageOut;
-    private int threadFinished;
-    private long processStartTime;
     private MarvinImagePlugin marvinImagePlugin;
     private int rotateAngle;
     private int [] rotateAngles;
@@ -46,6 +45,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         initComponents();
         
         this.jDScale = new JDScale(this, true);
+        this.jDAbout = new JDAbout(this, true);
+
           
     }
 
@@ -82,7 +83,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout mfcImagemLayout = new javax.swing.GroupLayout(mfcImagem.getContentPane());
         mfcImagem.getContentPane().setLayout(mfcImagemLayout);
@@ -251,9 +256,27 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem5);
 
+        jMenuItem8.setText("Desenho");
+        jMenu4.add(jMenuItem8);
+
+        jMenuItem9.setText("Brilho / Contraste");
+        jMenu4.add(jMenuItem9);
+
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Sobre");
+
+        jMenuItem10.setText("Ajuda");
+        jMenu5.add(jMenuItem10);
+
+        jMenuItem11.setText("Sobre");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem11);
+
         jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
@@ -369,6 +392,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
        System.exit(0);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        this.jDAbout.setVisible(true);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -418,12 +445,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
