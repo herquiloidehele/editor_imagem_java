@@ -5,7 +5,9 @@
  */
 package view;
 
+import java.awt.Dimension;
 import java.io.File;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.event.ChangeEvent;
@@ -16,6 +18,7 @@ import marvin.MarvinPluginCollection;
 import marvin.image.MarvinImage;
 import marvin.io.MarvinImageIO;
 import marvin.plugin.MarvinImagePlugin;
+import marvin.plugin.MarvinPlugin;
 import marvin.util.MarvinPluginLoader;
 import model.Rotacao;
 
@@ -29,6 +32,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     // Dialog que recebe os dados de altura e largura
     private JDScale jDScale;
     private JDAbout jDAbout;
+    private JDBrilho jdBrilho;
     
     
     
@@ -46,6 +50,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
         this.jDScale = new JDScale(this, true);
         this.jDAbout = new JDAbout(this, true);
+        this.jdBrilho = new JDBrilho(this, true);
 
           
     }
@@ -79,12 +84,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -178,6 +186,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jpPrincinpal.add(jPanel3);
 
+        jpImage.setBackground(new java.awt.Color(255, 255, 255));
         jpImage.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(30, 144, 255)));
         jpImage.setMaximumSize(new java.awt.Dimension(2000, 2000));
         jpImage.setPreferredSize(new java.awt.Dimension(920, 680));
@@ -233,10 +242,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenuItem3.setText("Voltar");
         jMenu2.add(jMenuItem3);
 
-        jMenuBar1.add(jMenu2);
+        jMenuItem12.setText("Discartar Tudo");
+        jMenu2.add(jMenuItem12);
 
-        jMenu3.setText("Ver");
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenu2);
 
         jMenu4.setText("Efeitos");
 
@@ -257,16 +266,51 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jMenu4.add(jMenuItem5);
 
         jMenuItem8.setText("Desenho");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem8);
 
         jMenuItem9.setText("Brilho / Contraste");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem9);
 
         jMenuBar1.add(jMenu4);
 
+        jMenu3.setText("Ver");
+
+        jMenuItem13.setText("Tela Cheia");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem13);
+
+        jMenuItem14.setText("Tela Media");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem14);
+
+        jMenuBar1.add(jMenu3);
+
         jMenu5.setText("Sobre");
 
         jMenuItem10.setText("Ajuda");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem10);
 
         jMenuItem11.setText("Sobre");
@@ -396,6 +440,41 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         this.jDAbout.setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        
+        this.marvinImagePlugin = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.color.thresholding.jar");
+        this.marvinImagePlugin.process(this.originalImage, this.originalImage);
+        this.originalImage.update();
+        this.jpImage.setImage(this.originalImage);
+        
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+       this.jdBrilho.setVisible(true);
+       
+       this.marvinImagePlugin = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.color.brightnessAndContrast.jar");
+       this.marvinImagePlugin.process(this.originalImage, this.originalImage);
+       this.originalImage.update();
+       this.jpImage.setImage(this.originalImage);
+       
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+       JOptionPane.showMessageDialog(null, "Não funcional ainda");
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setVisible(true);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        this.setSize(new Dimension(1000, 706));
+        this.revalidate();
+        this.validate();
+        this.setVisible(true);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -447,6 +526,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
