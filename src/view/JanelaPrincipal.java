@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.io.File;
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ import marvin.io.MarvinImageIO;
 import marvin.plugin.MarvinImagePlugin;
 import marvin.plugin.MarvinPlugin;
 import marvin.util.MarvinPluginLoader;
+import model.Movimento;
 import model.Rotacao;
 
 /**
@@ -33,6 +35,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private JDScale jDScale;
     private JDAbout jDAbout;
     private JDBrilho jdBrilho;
+    private Movimento movimento;
     
     
     
@@ -42,15 +45,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private int [] rotateAngles;
     
     
-    
-    
-    
     public JanelaPrincipal() {
+       
         initComponents();
-        
+//        for(Component componente: ){
+//            System.out.println(componente);
+//        }
+//        JOptionPane.showMessageDialog(null, );
+
+         this.movimento = new Movimento(this.jPanel1.getComponents());
         this.jDScale = new JDScale(this, true);
         this.jDAbout = new JDAbout(this, true);
         this.jdBrilho = new JDBrilho(this, true);
+        
+        
 
           
     }
@@ -74,7 +82,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
         jpImage = new marvin.gui.MarvinImagePanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -113,7 +121,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jpPrincinpal.setBackground(new java.awt.Color(255, 255, 255));
-        jpPrincinpal.setLayout(new javax.swing.BoxLayout(jpPrincinpal, javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -184,27 +191,60 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jPanel3.add(jPanel2);
 
-        jpPrincinpal.add(jPanel3);
-
         jpImage.setBackground(new java.awt.Color(255, 255, 255));
-        jpImage.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(30, 144, 255)));
         jpImage.setMaximumSize(new java.awt.Dimension(2000, 2000));
         jpImage.setPreferredSize(new java.awt.Dimension(920, 680));
+        jpImage.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jpImageMouseDragged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpImageLayout = new javax.swing.GroupLayout(jpImage);
         jpImage.setLayout(jpImageLayout);
         jpImageLayout.setHorizontalGroup(
             jpImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 918, Short.MAX_VALUE)
+            .addGap(0, 920, Short.MAX_VALUE)
         );
         jpImageLayout.setVerticalGroup(
             jpImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 678, Short.MAX_VALUE)
+            .addGap(0, 680, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(jpImage);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(313, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(286, Short.MAX_VALUE))
+        );
 
-        jpPrincinpal.add(jScrollPane1);
+        javax.swing.GroupLayout jpPrincinpalLayout = new javax.swing.GroupLayout(jpPrincinpal);
+        jpPrincinpal.setLayout(jpPrincinpalLayout);
+        jpPrincinpalLayout.setHorizontalGroup(
+            jpPrincinpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpPrincinpalLayout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jpPrincinpalLayout.setVerticalGroup(
+            jpPrincinpalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpPrincinpalLayout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         jMenu1.setText("Ficheiro");
 
@@ -475,6 +515,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         this.setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
+    private void jpImageMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpImageMouseDragged
+       
+        
+    }//GEN-LAST:event_jpImageMouseDragged
+
     /**
      * @param args the command line arguments
      */
@@ -537,9 +582,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private marvin.gui.MarvinImagePanel jpImage;
     private javax.swing.JPanel jpPrincinpal;
     private marvin.util.MarvinFileChooser mfcImagem;
