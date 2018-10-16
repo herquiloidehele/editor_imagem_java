@@ -191,6 +191,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jPanel3.add(jPanel2);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         jpImage.setBackground(new java.awt.Color(255, 255, 255));
         jpImage.setMaximumSize(new java.awt.Dimension(2000, 2000));
         jpImage.setPreferredSize(new java.awt.Dimension(920, 680));
