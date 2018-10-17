@@ -160,12 +160,6 @@ public class RecorteImagem extends JPanel implements MouseMotionListener, MouseL
             this.marvinPanel.removeAll();
             this.marvinPanel.repaint();
         }
-        
-        if(e.getClickCount() == 3){
-            this.marvinPanel.setImage(new MarvinImage(this.recortar()));
-            this.marvinPanel.repaint();
-        }
-        
     }
 
     @Override
