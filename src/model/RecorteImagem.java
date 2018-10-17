@@ -24,6 +24,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import marvin.gui.MarvinImagePanel;
+import marvin.image.MarvinImage;
 
 /**
  *
@@ -107,8 +108,9 @@ public class RecorteImagem extends JPanel implements MouseMotionListener, MouseL
      }
     }
     
-    private void recortar(){
+    public BufferedImage recortar(){
         tmp_recorte = ((BufferedImage) foto_original).getSubimage((int)clipX, (int)clipY, (int)clipAncho,(int) clipAlto);
+        return tmp_recorte;
     }
     
     public void guardar_imagem(String f){
@@ -158,11 +160,17 @@ public class RecorteImagem extends JPanel implements MouseMotionListener, MouseL
             this.marvinPanel.removeAll();
             this.marvinPanel.repaint();
         }
+        
+        if(e.getClickCount() == 3){
+            this.marvinPanel.setImage(new MarvinImage(this.recortar()));
+            this.marvinPanel.repaint();
+        }
+        
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+
     }
 
     @Override

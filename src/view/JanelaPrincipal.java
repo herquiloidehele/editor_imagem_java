@@ -489,6 +489,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             recorte.setClipAlto(jDCropSize.altura);
             recorte.setClipAncho(jDCropSize.largura);
             recorte.setVisible(true);
+            recorte.setFocusable(true);
             this.jpImage.add(this.recorte);
             this.jPanel1.repaint();
 //        MarvinPluginCollection.crop(this.originalImage.clone(), this.originalImage, 60, 32, 182, 62);
