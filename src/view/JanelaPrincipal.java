@@ -273,6 +273,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Ficheiro");
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Abrir...");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -281,6 +282,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem6.setText("Salvar...");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,6 +291,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem6);
 
+        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem7.setText("Sair");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -444,6 +447,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         this.originalImage.update();
         this.jpImage.setImage(new MarvinImage());
         this.jpImage.setImage(this.originalImage);
+        this.recorte.setFotoOriginal(this.originalImage.getBufferedImage());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -451,6 +455,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         this.marvinImagePlugin.process(this.originalImage, this.originalImage);
         this.originalImage.update();
         this.jpImage.setImage(this.originalImage);
+        this.recorte.setFotoOriginal(this.originalImage.getBufferedImage());
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -458,6 +463,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         this.marvinImagePlugin.process(this.originalImage, this.originalImage);
         this.originalImage.update();
         this.jpImage.setImage(this.originalImage);
+        this.recorte.setFotoOriginal(this.originalImage.getBufferedImage());
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -465,6 +471,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
        this.originalImage.update();
        this.jpImage.setImage(new MarvinImage());
        this.jpImage.setImage(this.originalImage);
+       this.recorte.setFotoOriginal(this.originalImage.getBufferedImage());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -485,8 +492,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 }
             }
          
-        this.imageOut.update();
-        this.jpImage.setImage(this.imageOut);
+           this.originalImage = this.imageOut.clone();
+        this.originalImage.update();
+        this.jpImage.setImage(this.originalImage);
+        this.recorte.setFotoOriginal(this.originalImage.getBufferedImage());
        }
        
             
@@ -502,6 +511,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             recorte.setFocusable(true);
             this.jpImage.add(this.recorte);
             this.jPanel1.repaint();
+            this.recorte.setFotoOriginal(this.originalImage.getBufferedImage());
 //        MarvinPluginCollection.crop(this.originalImage.clone(), this.originalImage, 60, 32, 182, 62);
 //        this.originalImage.update();
 //        this.jpImage.setImage(this.originalImage);

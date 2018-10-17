@@ -70,6 +70,11 @@ public class RecorteImagem extends JPanel implements MouseMotionListener, MouseL
     
     }
     
+    
+    public void setFotoOriginal(BufferedImage img){
+        this.foto_original = img;
+    }
+    
     public void setClipAncho(float valor){
         this.clipAncho = valor;
     }
