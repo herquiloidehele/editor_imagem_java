@@ -7,7 +7,12 @@ package view;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -22,6 +27,7 @@ import marvin.plugin.MarvinImagePlugin;
 import marvin.plugin.MarvinPlugin;
 import marvin.util.MarvinPluginLoader;
 import model.Movimento;
+import model.RecorteImagem;
 import model.Rotacao;
 
 /**
@@ -35,7 +41,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private JDScale jDScale;
     private JDAbout jDAbout;
     private JDBrilho jdBrilho;
+    private JDCropSize jDCropSize;
     private Movimento movimento;
+    private RecorteImagem recorte;
     
     
     
@@ -57,6 +65,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         this.jDScale = new JDScale(this, true);
         this.jDAbout = new JDAbout(this, true);
         this.jdBrilho = new JDBrilho(this, true);
+        this.jDCropSize = new JDCropSize(this, true);
         
         
 
@@ -119,6 +128,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jFileChooserSave.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jpPrincinpal.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -199,6 +213,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jpImage.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jpImageMouseDragged(evt);
+            }
+        });
+        jpImage.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jpImageKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jpImageKeyPressed(evt);
             }
         });
 
@@ -394,6 +416,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         try{
            
             this.originalImage = MarvinImageIO.loadImage(file.getAbsolutePath());
+            recorte = new RecorteImagem(this.originalImage.getBufferedImage(), this.jpImage);
+            recorte.setVisible(false);
 //            this.imageIn = new MarvinImage(this.originalImage.getWidth(), this.originalImage.getHeight());
 //            this.imageOut = new MarvinImage(this.originalImage.getWidth(), this.originalImage.getHeight());
             
@@ -436,7 +460,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        this.jDScale.setVisible(true);
        
-       this.imageOut = this.originalImage.clone();
+       if(jDScale.largura >0 && this.jDScale.largura>0){
+           this.imageOut = this.originalImage.clone();
        this.imageOut.setDimension(jDScale.largura, this.jDScale.largura);
        
         int x_ratio = (int)((this.originalImage.getWidth()<<16)/this.jDScale.largura) ;
@@ -452,15 +477,24 @@ public class JanelaPrincipal extends javax.swing.JFrame {
          
         this.imageOut.update();
         this.jpImage.setImage(this.imageOut);
+       }
+       
             
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-        
-        MarvinPluginCollection.crop(this.originalImage.clone(), this.originalImage, 60, 32, 182, 62);
-        this.originalImage.update();
-        this.jpImage.setImage(this.originalImage);
+
+       this.jDCropSize.setVisible(true);
+            
+            recorte.setClipAlto(jDCropSize.altura);
+            recorte.setClipAncho(jDCropSize.largura);
+            recorte.setVisible(true);
+            this.jpImage.add(this.recorte);
+            this.jPanel1.repaint();
+//        MarvinPluginCollection.crop(this.originalImage.clone(), this.originalImage, 60, 32, 182, 62);
+//        this.originalImage.update();
+//        this.jpImage.setImage(this.originalImage);
+      
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -521,6 +555,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_jpImageMouseDragged
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+//        if(evt.paramString() == KeyEvent.VK_ESCAPE){
+//                 JOptionPane.showMessageDialog(null, "clicado");
+//             }
+    }//GEN-LAST:event_formKeyPressed
+
+    private void jpImageKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpImageKeyTyped
+
+    }//GEN-LAST:event_jpImageKeyTyped
+
+    private void jpImageKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpImageKeyPressed
+                    System.out.println(evt.getKeyChar());
+
+    }//GEN-LAST:event_jpImageKeyPressed
 
     /**
      * @param args the command line arguments
